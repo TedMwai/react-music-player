@@ -1,4 +1,3 @@
-import { playAudio } from "../util";
 
 const LibrarySong = ({
   song,
@@ -9,9 +8,9 @@ const LibrarySong = ({
   isPlaying,
   setSongs,
 }) => {
-  const songSelectHandler = () => {
+  const songSelectHandler = async () => {
     const selectedSong = songs.filter((state) => state.id === id);
-    setCurrentSong(selectedSong[0]);
+    await setCurrentSong(selectedSong[0]);
     // add active state
     const newSongs = songs.map((song) => {
       if (song.id === id) {
@@ -22,8 +21,8 @@ const LibrarySong = ({
     });
     setSongs(newSongs);
   };
-  // check if song is playing
-  playAudio(isPlaying, audioRef);
+// check if song is playing
+  if(isPlaying) audioRef.current.play();
   return (
     <div
       onClick={songSelectHandler}
